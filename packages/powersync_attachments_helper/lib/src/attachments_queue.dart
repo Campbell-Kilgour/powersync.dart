@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:path_provider/path_provider.dart';
+
 import './attachments_queue_table.dart';
 import './attachments_service.dart';
 import './local_storage_adapter.dart';
@@ -59,7 +61,7 @@ abstract class AbstractAttachmentQueue {
 
   /// Create watcher to get list of ID's from a table to be used for syncing in the attachment queue.
   /// Set the file extension if you are using a different file type
-  StreamSubscription<void> watchIds({String fileExtension = 'jpg'});
+  StreamSubscription<void> watchIds();
 
   /// Create a function to save files using the attachment queue
   Future<Attachment> saveFile(String fileId, int size);
@@ -104,9 +106,10 @@ abstract class AbstractAttachmentQueue {
   }
 
   /// Returns the directory where attachments are stored on the device, used to make dir
+  /// Default is same dirrectory that Powersync DB is in
   /// Example: "/var/mobile/Containers/Data/Application/.../Library/attachments/"
   Future<String> getStorageDirectory() async {
-    String userStorageDirectory = await localStorage.getUserStorageDirectory();
+    final userStorageDirectory = await getApplicationSupportDirectory();
     return '$userStorageDirectory/$attachmentDirectoryName';
   }
 
