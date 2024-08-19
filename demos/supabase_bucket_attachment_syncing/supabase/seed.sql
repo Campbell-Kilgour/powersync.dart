@@ -1,0 +1,3 @@
+-- TODO: Add user to auth.users
+-- TODO: Add profile picture bucket to storage.buckets
+-- TODO: Figure out how to seed example profile pictures
