@@ -7,4 +7,4 @@ create table if not exists public.profile(
     profile_picture text not null
 );
 
--- TODO: Add functions for syncing auth.users -> public.profile
+-- TODO: Add functions for creating public.profile rows from auth.users rows
